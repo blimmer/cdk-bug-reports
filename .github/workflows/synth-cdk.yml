@@ -20,5 +20,6 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm ci
-    - run: cd lib/lambda && npm ci && cd ../../
+    - run: cd lib/lambda && npm ci && npx --no-install esbuild --help && cd ../../
     - run: npm run cdk synth
+    - run: echo $PATH
