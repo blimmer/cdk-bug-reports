@@ -5,5 +5,8 @@
   "packageManager": "yarn@3.0.2",
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "devDependencies": {
+    "esbuild": "0.13"
+  }
 }
