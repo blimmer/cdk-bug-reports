@@ -1,2 +1,7 @@
-aws-cdk.core>=1.138.0
-aws-cdk.assertions>=1.138.0
+aws_cdk.core>=1.85.0,<2.0
+aws_cdk.aws_ec2>=1.85.0,<2.0
+aws_cdk.aws_certificatemanager>=1.85.0,<2.0
+aws_cdk.aws_apigateway>=1.85.0,<2.0
+aws_cdk.aws_route53>=1.85.0,<2.0
+aws_cdk.aws_route53_targets>=1.85.0,<2.0
+aws_cdk.aws_rds>=1.85.0,<2.0
