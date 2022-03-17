@@ -15,3 +15,5 @@ cdk.out
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+!lib/lambda-at-edge/index.js
