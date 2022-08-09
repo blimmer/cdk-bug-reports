@@ -4,7 +4,7 @@ import * as cdk from 'aws-cdk-lib';
 import { CdkBugReportsStack } from '../lib/cdk-bug-reports-stack';
 
 const app = new cdk.App();
-new CdkBugReportsStack(app, 'CdkBugReportsStack', {
+new CdkBugReportsStack(app, 'AVeryLongCdkBugReportsStackNameThatsNotVeryLikelyUnlessYouAreUsingCdkPipelinesAndThenTheseAreActuallyQuiteLong', {
   /* If you don't specify 'env', this stack will be environment-agnostic.
    * Account/Region-dependent features and context lookups will not work,
    * but a single synthesized template can be deployed anywhere. */
