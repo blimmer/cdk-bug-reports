@@ -1,16 +1,22 @@
-import * as cdk from 'aws-cdk-lib';
+import { DockerImage, Stack, StackProps } from 'aws-cdk-lib';
+import { Asset } from 'aws-cdk-lib/aws-s3-assets';
 import { Construct } from 'constructs';
-// import * as sqs from 'aws-cdk-lib/aws-sqs';
 
-export class CdkBugReportsStack extends cdk.Stack {
-  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+export class CdkBugReportsStack extends Stack {
+  constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    // The code that defines your stack goes here
-
-    // example resource
-    // const queue = new sqs.Queue(this, 'CdkBugReportsQueue', {
-    //   visibilityTimeout: cdk.Duration.seconds(300)
-    // });
+    new Asset(this, 'Asset', {
+      path: __dirname,
+      bundling: {
+        image: DockerImage.fromRegistry('ubuntu:latest'),
+        command: [
+          "/bin/bash", "-c", [
+            "echo 'Hello, world!'",
+            "./not-a-real-script", // force a failure - this file doesn't exist
+          ].join(' && ')
+        ]
+      }
+    })
   }
 }
