@@ -1,16 +1,14 @@
 import * as cdk from 'aws-cdk-lib';
+import { DockerImageName, ECRDeployment } from 'cdk-ecr-deployment';
 import { Construct } from 'constructs';
-// import * as sqs from 'aws-cdk-lib/aws-sqs';
 
 export class TestCdkVersionStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    // The code that defines your stack goes here
-
-    // example resource
-    // const queue = new sqs.Queue(this, 'TestCdkVersionQueue', {
-    //   visibilityTimeout: cdk.Duration.seconds(300)
-    // });
+    new ECRDeployment(this, 'DeployDockerImage2', {
+      src: new DockerImageName('nginx:latest'),
+      dest: new DockerImageName(`12312321893.dkr.ecr.us-west-2.amazonaws.com/my-nginx2:latest`),
+    });
   }
 }
