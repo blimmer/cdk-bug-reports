@@ -3,6 +3,7 @@ import { readFileSync, writeFileSync } from "fs";
 import { join } from "path";
 
 const versions = [
+  "2.96.2",
   "2.97.0",
   "2.97.1",
   "2.98.0",
@@ -46,6 +47,7 @@ const versions = [
 for (const version of versions) {
   console.log("*******************");
   console.log(`Testing version ${version}`);
+  spawnSync("git", ["clean", "-fdx"]);
   const packageJson = JSON.parse(
     readFileSync(join(__dirname, "package.json")).toString()
   );
@@ -53,8 +55,8 @@ for (const version of versions) {
   packageJson.dependencies["aws-cdk-lib"] = version;
   writeFileSync(join(__dirname, "package.json"), JSON.stringify(packageJson));
 
-  spawnSync("yarn", { stdio: "inherit" });
-  const result = spawnSync("yarn", ["cdk", "synth"], { stdio: "inherit" });
+  spawnSync("npm", ["install"], { stdio: "inherit" });
+  const result = spawnSync("npx", ["cdk", "synth"], { stdio: "inherit" });
   if (result.status === 0) {
     console.log(`Version ${version} works`);
     break;
