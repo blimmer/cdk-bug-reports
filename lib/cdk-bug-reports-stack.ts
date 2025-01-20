@@ -1,16 +1,23 @@
 import * as cdk from 'aws-cdk-lib';
+import { Repository } from 'aws-cdk-lib/aws-ecr';
+import { DockerImageAsset } from 'aws-cdk-lib/aws-ecr-assets';
 import { Construct } from 'constructs';
-// import * as sqs from 'aws-cdk-lib/aws-sqs';
+import { join } from 'path';
 
 export class CdkBugReportsStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    // The code that defines your stack goes here
+    const repo = new Repository(this, "Repository" );
 
-    // example resource
-    // const queue = new sqs.Queue(this, 'CdkBugReportsQueue', {
-    //   visibilityTimeout: cdk.Duration.seconds(300)
-    // });
+    new DockerImageAsset(this, 'DockerImageAsset', {
+      directory: join(__dirname, '..', 'assets', 'docker'),
+      buildArgs: {
+        "AWS_ACCOUNT_NUMBER": this.account,
+        "AWS_REGION": this.region,
+        "REPO": repo.repositoryName,
+        "TAG": "latest" // TODO: push some image with `latest` tag
+      }
+    })
   }
 }
